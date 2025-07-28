@@ -7,54 +7,25 @@
         <meta name="author" content="" />
         <title>Login!</title>
         <link rel="icon" type="image/x-icon" href="iconepr.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        @vite ('resources/css/MedLogin/lgmed.css')
     </head>
 <body>
-    <section class="page-section" id="contact">
-        <div class="container">
-            <div>
-                <h2 class="section-heading text-uppercase">Login</h2>
-                <h3 class="section-subheading text-muted"></h3>
-            </div>
-                <form method="POST" action="lgmed.php" id="contactForm">
-                    <div class="row align-items-center mb-5">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input class="form-control" id="nomemed" placeholder="Digite seu nome" type="text" name="nomemed" required>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" id="senhamed" placeholder="Digite sua senha" type="password" name="senhamed" required>
-                            </div><br><br><br>
-                            <!-- <button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Cadastrar</button> -->
-                            <input class="btn btn-primary btn-xl text-uppercase" type="submit" name="submit" id="submit" value="Logar"> 
-                            <a href="{{ route('Medico') }}">
-                                <input class="btn btn-primary btn-xl text-uppercase" type="button" value="Cadastre-se"></a> <a href="{{ route('Inicio') }}"><input class="btn btn-primary btn-xl text-uppercase" type="button" value="voltar"></a>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
+    <section>
+        <h2>Login</h2>
 
-    <footer class="footer py-4">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4 text-lg-start">Copyright &copy; MedPrime 2023</div>
-                <div class="col-lg-4 my-3 my-lg-0">
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
+        <form method="POST" action="{{ route('Medico_Login_ROTA') }}">
+        @csrf
+
+            <input id="nomemed" placeholder="Digite seu nome" type="text" name="nomemed" required>
+            
+            <input id="senhamed" placeholder="Digite sua senha" type="password" name="senhamed" required>
+            
+            <input type="submit" name="submit" id="submit" value="Logar"> 
+            
+            <a href="{{ route('Medico_Cadastro_VIEW') }}"> <input type="button" value="Cadastre-se"> </a> 
+            
+            <a href="{{ route('Inicio_VIEW') }}"> <input type="button" value="voltar"> </a>
+
+        </form>
+    </section>
 </body>
 </html>

@@ -4,16 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Paciente extends Model
+class Medico extends Model
 {
-    protected $table = 'paciente';
+    protected $table = 'medico';
 
     protected $fillable = [
-    'nomepaciente',
-    'senhapaciente',
-    'emailpaciente',
+    'nomemedico',
+    'senhamedico',
+    'especializacaomedico',
     ];
 
     public $timestamps = false;
 }
-

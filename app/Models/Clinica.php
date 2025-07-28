@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Paciente extends Model
+class Clinica extends Model
 {
-    protected $table = 'paciente';
+    protected $table = 'clinicas';
 
     protected $fillable = [
-    'nomepaciente',
-    'senhapaciente',
-    'emailpaciente',
+    'nomedaclinica',
+    'cepclinica',
     ];
 
     public $timestamps = false;
+
 }
 

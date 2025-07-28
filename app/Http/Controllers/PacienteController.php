@@ -3,52 +3,85 @@
 namespace App\Http\Controllers;
 
 use App\Models\Paciente;
+use App\Models\Clinica;
+use App\Models\Medico;
 use Illuminate\Http\Request;
 
 class PacienteController extends Controller
 {
-    public function buscarPorNome(Request $request){
+    private $especializacoes = [
+        'Cardiologia',
+        'Dermatologia',
+        'Neurologia',
+        'Pediatria',
+        'Ortopedia',
+        'Psiquiatria',
+    ];
+
+    public function LoginPaciente(Request $request){
 
         $nome = $request->input('nome');
         $senha = $request->input('senha');
 
-        $existe = Paciente::where('nomepaciente', $nome)->where('senhapaciente', $senha)->exists();
+        $existe = Paciente::where('nomepaciente', $nome)->where('senhapaciente', $senha)->first();
 
-        if ($existe){
-            // Aqui você pode retornar alguma view ou resposta
-            return redirect()->route('hmp');
-        } else {
-            return redirect()->route('Login');
+        if($existe){
+            return redirect()->route('Homepage');
         }
+    return redirect()->route('Paciente_Login_VIEW');
+
     }
 
-    public function cadastropaciente(Request $request){
+    public function CadastroPaciente(Request $request){
 
         $paciente = Paciente::create([
             'nomepaciente' => $request->input('nomepac'),
             'senhapaciente' => $request->input('senhapac'),
             'emailpaciente' => $request->input('emailpac'),
-            'telefonepaciente' => $request->input('telefonepac'),
-            'datanascimentopaciente' => $request->input('datanascimentopac'),
-            'cpfpaciente' => $request ->input('cpfpac'),
-            'ceppaciente' => $request ->input('ceppac'),
-            'bairropaciente' => $request ->input('bairropac')
         ]);
-    return redirect()->resource('Login');
+        return redirect()->route('Paciente_Login_VIEW');
     
     }
 
     public function formularioCadastro()
-    {
-        $especializacoes = [
-            'Cardiologia',
-            'Dermatologia',
-            'Neurologia',
-            'Pediatria',
-            'Ortopedia',
-            'Psiquiatria',
-        ];
+    {   
+        $clinicas = Clinica::select('nomedaclinica')->get();
 
-        return view('Medico', compact('especializacoes'));
+        return view('Medico.medico', [
+            'clinicas' => $clinicas,
+            'especializacoes' =>$this->especializacoes
+        ]);
     }
+
+    public function especializacoes()
+    {
+        return view('Agendamento.telagendamento',[
+            'especializacoes'=>$this->especializacoes
+        ]);
+    }
+
+    public function Consultas()
+    {
+        $teste = Paciente::select('nomepaciente', 'senhapaciente')->get();
+
+        return view('Homepage.homepage', ['teste'=>$teste]);
+    }
+
+    public function CadastroMedico(Request $request)
+    {
+        $especializacao = $request->input('especializacaomed');
+
+        if ($especializacao === 'outro') {
+            $especializacao = $request->input('caixaOutro');
+        }
+
+        $medico = Medico::create([
+            'nomemedico' => $request->input('nomemed'),
+            'senhamedico' => $request->input('senhamed'),
+            'especializacaomedico' => $especializacao,
+        ]);
+
+        return redirect()->route('Medico_Login_VIEW');
+    }
+
 }
